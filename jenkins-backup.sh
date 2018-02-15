@@ -57,7 +57,7 @@ function backup_jobs {
       build=`ls -ltr "$JENKINS_HOME/jobs/$rel_depth/$job_name/builds" | tail -1 | awk '{print $NF}'`
       find "$JENKINS_HOME/jobs/$rel_depth/$job_name/" -maxdepth 1 -name "*.xml" -print0 | xargs -0 -I {} cp {} "$ARC_DIR/jobs/$rel_depth/$job_name/"
       if [ -n "$build" ] ; then
-      cp -r "$build" "$ARC_DIR/jobs/$rel_depth/$job_name/builds/"
+      cp -r "$JENKINS_HOME/jobs/$rel_depth/$job_name/builds/$build" "$ARC_DIR/jobs/$rel_depth/$job_name/builds/"
       fi
       if [ -f "$JENKINS_HOME/jobs/$rel_depth/$job_name/config.xml" ] && [ "$(grep -c "com.cloudbees.hudson.plugins.folder.Folder" "$JENKINS_HOME/jobs/$rel_depth/$job_name/config.xml")" -ge 1 ] ; then
         #echo "Folder! $JENKINS_HOME/jobs/$rel_depth/$job_name/jobs"
